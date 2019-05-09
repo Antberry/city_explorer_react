@@ -6,10 +6,17 @@ import Yelp from './yelp';
 import Trails from './trails';
 
 class Result extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      location: ''
+    }
+  }
   render() {
     return (
       <React.Fragment>
-        <Weather/>
+        <Weather />
         <Movies/>
         <Events/>
         <Yelp/>

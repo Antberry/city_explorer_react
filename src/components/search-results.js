@@ -6,10 +6,6 @@ class SearchResults extends React.Component {
     return (
       <>
       <Result/>
-      <Result/>
-      <Result/>
-      <Result/>
-      <Result/>
       </>
     );
   }
