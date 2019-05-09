@@ -19,6 +19,7 @@ import Map from './map';
     }
 
     updateLocation = (data) => {
+      console.log(data);
       this.setState({
         search_query: data.search_query,
         formatted_query: data.formatted_query,
@@ -32,8 +33,12 @@ import Map from './map';
       return (
         <React.Fragment>
           <Header />
+          <p>{this.state.formatted_query}</p>
           <SearchForm updateLocation = {this.updateLocation}/>
-          <Map/>
+          <Map 
+            latitude = {this.state.latitude} 
+            longitude={this.state.longitude}
+          />
           <SearchResults />
         </React.Fragment>
       );
