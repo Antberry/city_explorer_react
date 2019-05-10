@@ -10,24 +10,41 @@ class Events extends React.Component {
     }
   }
   
-  receiveEventData = async (latitude, longitude) => {
-    let eventStuff = await superagent.get(`https://city-explorer-backend.herokuapp.com/events/`).query({data: {'latitude': latitude, 'longitude': longitude}});
+  receiveEventData = async (loc) => {
+    let eventStuff = await superagent.get(`https://mysterious-river-14511.herokuapp.com/events/`).query({data: loc});
 
     let eventData = eventStuff.body;
     this.setState({eventData});
     console.log(this.state.eventData);
   }
 
-  render() {
-    if(this.props.location.latitude && this.props.location.longitude){
-      this.receiveEventData(this.props.location.latitude, this.props.location.longitude);
+  componentDidMount(){ // this will only be called on intial render
+    if(this.props.location){
+      this.receiveEventData(this.props.location);
     }
+  }
+
+  // console.log(location);
+  componentDidUpdate(previousProps){ // this
+    console.log('location in update', this.props.location);
+    if(this.props.location !== previousProps.location){
+      this.receiveEventData(this.props.location);
+    }
+  }
+
+  render() {
     return (
       <React.Fragment>
         <section className="events-container">
         <h3>Results from EventBrite API</h3>
-        <ul className="events-results">{this.state.eventData.map((item,i) => <li key={i}>{item}</li>)
-        }</ul>
+        <ul className="events-results">{this.state.eventData.map((item,i) => {
+              return (<li key={i}>
+              <a href={item.link }>{item.name }</a>
+              <p>Event Date: { item.event_date }</p>
+              <p>{ item.summary }</p>
+            </li>)
+        })}
+        </ul>
       </section>
       </React.Fragment>
     );

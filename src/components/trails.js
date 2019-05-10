@@ -10,18 +10,29 @@ class Trails extends React.Component {
     }
   }
 
-  receiveTrailsData = async (latitude, longitude) => {
-    let trailsStuff = await superagent.get(`https://city-explorer-backend.herokuapp.com/movies/`).query({data: {'latitude': latitude, 'longitude': longitude}});
+  receiveTrailsData = async (loc) => {
+    let trailsStuff = await superagent.get(`https://mysterious-river-14511.herokuapp.com/trails/`).query({data: loc});
 
     let trailsData = trailsStuff.body;
     this.setState({trailsData});
     // console.log(this.state.trailsData);
   }
+
+  componentDidMount(){ // this will only be called on intial render
+    if(this.props.location){
+      this.receiveTrailsData(this.props.location);
+    }
+  }
+
+  // console.log(location);
+  componentDidUpdate(previousProps){ // this
+    console.log('location in update', this.props.location);
+    if(this.props.location !== previousProps.location){
+      this.receiveTrailsData(this.props.location);
+    }
+  }
   
   render() {
-    if(this.props.location.latitude && this.props.location.longitude){
-      this.receiveTrailsData(this.props.location.latitude, this.props.location.longitude);
-    }
     return (
     <>
       <section className="trails-container">
