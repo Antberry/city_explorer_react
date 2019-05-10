@@ -9,18 +9,15 @@ class Result extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      location: ''
-    }
   }
   render() {
     return (
       <React.Fragment>
-        <Weather />
-        <Movies/>
-        <Events/>
-        <Yelp/>
-        <Trails/>
+        <Weather location= {this.props.location}/>
+        <Movies location= {this.props.location}/>
+        <Events location= {this.props.location}/>
+        <Yelp location= {this.props.location}/>
+        <Trails location= {this.props.location}/>
       </React.Fragment>
     );
   }

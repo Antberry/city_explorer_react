@@ -11,21 +11,24 @@ import Map from './map';
       super(props);
 
       this.state = {
-        search_query: '',
-        formatted_query: '',
-        latitude: null,
-        longitude: null
+        location: {
+          search_query: '',
+          formatted_query: '',
+          latitude: null,
+          longitude: null
+        }
       }
     }
 
     updateLocation = (data) => {
       console.log(data);
       this.setState({
-        search_query: data.search_query,
-        formatted_query: data.formatted_query,
-        latitude: data.latitude,
-        longitude: data.longitude
-
+        location: {
+          search_query: data.search_query,
+          formatted_query: data.formatted_query,
+          latitude: data.latitude,
+          longitude: data.longitude
+        }
       });
     };
 
@@ -35,11 +38,8 @@ import Map from './map';
           <Header />
           <p>{this.state.formatted_query}</p>
           <SearchForm updateLocation = {this.updateLocation}/>
-          <Map 
-            latitude = {this.state.latitude} 
-            longitude={this.state.longitude}
-          />
-          <SearchResults />
+          <Map location = {this.state.location}/>
+          <SearchResults location = {this.state.locations}/>
         </React.Fragment>
       );
     }

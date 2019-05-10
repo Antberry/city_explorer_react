@@ -7,8 +7,11 @@ class Weather extends React.Component {
   
   render() {
     return (
-      <div>
-      </div>
+      <React.Fragment>
+      <section>
+        <ul className="list">{url = `https://city-explorer-backend.herokuapp.com/location?data=${this.state.location}`}</ul>
+        </section>
+      </React.Fragment>
     );
   }
 }

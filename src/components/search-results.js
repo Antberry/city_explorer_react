@@ -5,7 +5,7 @@ class SearchResults extends React.Component {
   render() {
     return (
       <>
-      <Result/>
+      <Result location = {this.state.location}/>
       </>
     );
   }
