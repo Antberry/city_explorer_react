@@ -39,7 +39,7 @@ import Map from './map';
           <p>{this.state.formatted_query}</p>
           <SearchForm updateLocation = {this.updateLocation}/>
           <Map location = {this.state.location}/>
-          <SearchResults location = {this.state.locations}/>
+          <SearchResults location = {this.state.location}/>
         </React.Fragment>
       );
     }

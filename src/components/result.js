@@ -6,10 +6,7 @@ import Yelp from './yelp';
 import Trails from './trails';
 
 class Result extends React.Component {
-  constructor(props){
-    super(props);
 
-  }
   render() {
     return (
       <React.Fragment>
