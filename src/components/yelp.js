@@ -10,29 +10,41 @@ class Yelp extends React.Component {
     };
   }
 
-  receiveYelpData = async (latitude, longitude) => {
-    let yelpStuff = await superagent.get(`https://city-explorer-backend.herokuapp.com/yelp/`).query({data: {'latitude': latitude, 'longitude': longitude}});
+  receiveYelpData = async (loc) => {
+    let yelpStuff = await superagent.get(`https://mysterious-river-14511.herokuapp.com/yelp/`).query({data: loc});
 
     let yelpData = yelpStuff.body;
     this.setState({yelpData});
  
   }
-  render() {
-    if(this.props.location.latitude && this.props.location.longitude){
-      this.receiveYelpData(this.props.location.latitude, this.props.location.longitude);
+  componentDidMount(){ // this will only be called on intial render
+    if(this.props.location){
+      this.receiveYelpData(this.props.location);
     }
-    console.log(this.state.yelpData);
+  }
+
+  // console.log(location);
+  componentDidUpdate(previousProps){ // this
+    console.log('location in update', this.props.location);
+    if(this.props.location !== previousProps.location){
+      this.receiveYelpData(this.props.location);
+    }
+  }
+
+  render() {
+  
+
     return (
       <React.Fragment>
         <section className="yelp-container">
         <h3>Results from Yelp API</h3>
         <ul className="yelp-results">{this.state.yelpData.map((item,i) => {
-          console.log(item);
-          <li key={i}>
+          // console.log(item);
+          return (<li key={i}>
             <a href={item.url}>{item.name}</a>
             <p>The average rating is ${item.rating} out of 5 and the average cost is ${item.price} out of 4</p>
             <img src={item.image_url}/>
-          </li>
+          </li>)
         })
       }</ul>
       </section>
