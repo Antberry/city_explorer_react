@@ -1,19 +1,33 @@
 import React from 'react';
+import superagent from 'superagent';
 
 class Movies extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
-      location: ''
+      movieData: []
     }
   };
+
+  receiveMovieData = async (latitude, longitude) => {
+    let movieStuff = await superagent.get(`https://city-explorer-backend.herokuapp.com/movies/`).query({data: {'latitude': latitude, 'longitude': longitude}});
+
+    let movieData = movieStuff.body;
+    this.setState({movieData});
+    // console.log(this.state.movieData);
+  }
+
   render() {
+    if(this.props.location.latitude && this.props.location.longitude){
+      this.receiveMovieData(this.props.location.latitude, this.props.location.longitude);
+    }
     return (
      <>
-        <section class="movie-container">
+        <section className="movie-container">
         <h3>Results from The Movie DB API</h3>
-        <ul class="movies-results"></ul>
+        <ul className="movies-results">{this.state.movieData.map((item,i) => <li key={i}>{item}</li>)
+        }</ul>
       </section>
      </>
     );
